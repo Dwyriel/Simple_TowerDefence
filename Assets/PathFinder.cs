@@ -9,18 +9,32 @@ public class PathFinder : MonoBehaviour
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
     Vector2Int[] directions = { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left };
     Queue<Waypoint> queueWP = new Queue<Waypoint>();
+    List<Waypoint> path = new List<Waypoint>();
     bool isRunning = true;
     Waypoint searchCenter;
 
-    private void Start()
+    public List<Waypoint> GetPath()
     {
         LoadBlocks();
         ColorWaypoints();
-        PathFind();
-        //ExploreNeighbours();
+        BreadthFirstSearch();
+        CreatePath();
+        return path;
     }
 
-    private void PathFind()
+    private void CreatePath()
+    {
+        path.Add(finish);
+        Waypoint previousWaypoint = finish.exploredFrom;
+        while (previousWaypoint != null)
+        {
+            path.Add(previousWaypoint);
+            previousWaypoint = previousWaypoint.exploredFrom;
+        }
+        path.Reverse();
+    }
+
+    private void BreadthFirstSearch()
     {
         queueWP.Enqueue(start);
         while (queueWP.Count > 0 && isRunning)
@@ -30,7 +44,6 @@ public class PathFinder : MonoBehaviour
             StopSearchIfFound();
             ExploreNeighbours();
         }
-        print("Finished pathfinding?");
     }
 
     private void StopSearchIfFound()
@@ -47,8 +60,7 @@ public class PathFinder : MonoBehaviour
         foreach (Vector2Int direction in directions)
         {
             Vector2Int neighbourCoords = searchCenter.GetGridPos() + direction;
-            try
-            {
+            if (grid.ContainsKey(neighbourCoords)) {
                 Waypoint neighbour = grid[neighbourCoords];
                 if (!neighbour.isExplored && !queueWP.Contains(neighbour))
                 {
@@ -56,11 +68,8 @@ public class PathFinder : MonoBehaviour
                     queueWP.Enqueue(neighbour);
                     neighbour.exploredFrom = searchCenter;
                 }
-            }
-            catch
-            {
-
-            }
+            } 
+            
         }
     }
 

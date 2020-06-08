@@ -8,23 +8,20 @@ public class EnemyMovement : MonoBehaviour
 
     void Start()
     {
-        
-        StartCoroutine(PrintWaypoints());
-        print(path.Count);
+        PathFinder pathfinder = FindObjectOfType<PathFinder>();
+        var path = pathfinder.GetPath();
+        StartCoroutine(FollowPath(path));
     }
-
-    IEnumerator PrintWaypoints()
+    
+    IEnumerator FollowPath(List<Waypoint> path)
     {
-        print("Starting Patrol");
         foreach (Waypoint waypoint in path)
         {
-            print("Visiting " + waypoint.name);
             transform.position = waypoint.transform.position;
             yield return new WaitForSeconds(1f);
         }
-        print("Ending Patrol");
     }
-
+    
     void Update()
     {
 
