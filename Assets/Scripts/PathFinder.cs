@@ -15,10 +15,13 @@ public class PathFinder : MonoBehaviour
 
     public List<Waypoint> GetPath()
     {
-        LoadBlocks();
-        ColorWaypoints();
-        BreadthFirstSearch();
-        CreatePath();
+        if (path.Count == 0)
+        {
+            LoadBlocks();
+            ColorWaypoints();
+            BreadthFirstSearch();
+            CreatePath();
+        }
         return path;
     }
 
@@ -60,7 +63,8 @@ public class PathFinder : MonoBehaviour
         foreach (Vector2Int direction in directions)
         {
             Vector2Int neighbourCoords = searchCenter.GetGridPos() + direction;
-            if (grid.ContainsKey(neighbourCoords)) {
+            if (grid.ContainsKey(neighbourCoords))
+            {
                 Waypoint neighbour = grid[neighbourCoords];
                 if (!neighbour.isExplored && !queueWP.Contains(neighbour))
                 {
@@ -68,8 +72,8 @@ public class PathFinder : MonoBehaviour
                     queueWP.Enqueue(neighbour);
                     neighbour.exploredFrom = searchCenter;
                 }
-            } 
-            
+            }
+
         }
     }
 

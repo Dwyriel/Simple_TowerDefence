@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] int hitsToDie = 5;
+    [SerializeField] int hitPoints = 8;
     bool isDestroyed = false;
 
     private void OnParticleCollision(GameObject other)
     {
-        hitsToDie--;
-        if (!isDestroyed && hitsToDie <= 0)
+        if (!isDestroyed && hitPoints <= 0)
         {
             TriggerDeath();
+        } else
+        {
+            hitPoints--;
         }
     }
 

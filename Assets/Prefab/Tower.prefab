@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToPan: {fileID: 182552569123579389}
   targetEnemy: {fileID: 0}
+  attackRange: 40
 --- !u!1001 &181864553768507690
 PrefabInstance:
   m_ObjectHideFlags: 0
