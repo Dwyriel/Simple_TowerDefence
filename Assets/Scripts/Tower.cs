@@ -1,19 +1,47 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Tower : MonoBehaviour
 {
-    [SerializeField] Transform objectToPan, targetEnemy;
+    [SerializeField] Transform objectToPan;
     [SerializeField] float attackRange = 40f;
     ParticleSystem projectile;
+    Transform targetEnemy;
     private void Start()
     {
         projectile = GetComponentInChildren<ParticleSystem>();
     }
     void Update()
     {
+        SetTargetEnemy();
         LookAndShoot();
+    }
+
+    private void SetTargetEnemy()
+    {
+        Enemy[] sceneEnemies = FindObjectsOfType<Enemy>();
+        if (sceneEnemies.Length == 0)
+        {
+            return;
+        }
+        Transform closestEnemy = sceneEnemies[0].transform;
+        foreach (Enemy testEnemy in sceneEnemies)
+        {
+            closestEnemy = getClosest(closestEnemy, testEnemy.transform);
+        }
+        targetEnemy = closestEnemy;
+    }
+
+    Transform getClosest(Transform transform1, Transform transform2)
+    {
+        if (Vector3.Distance(this.transform.position, transform1.transform.position) > Vector3.Distance(this.transform.position, transform2.transform.position))
+        {
+            transform1 = transform2;
+        }
+        return transform1;
     }
 
     void LookAndShoot()
@@ -36,5 +64,4 @@ public class Tower : MonoBehaviour
             projectile.Stop();
         }
     }
-
 }

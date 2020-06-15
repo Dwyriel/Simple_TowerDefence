@@ -21,8 +21,4 @@ public class EnemySpawner : MonoBehaviour
             newEnemy.transform.parent = this.transform;
         }
     }
-    void Update()
-    {
-
-    }
 }

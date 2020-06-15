@@ -18,7 +18,6 @@ public class PathFinder : MonoBehaviour
         if (path.Count == 0)
         {
             LoadBlocks();
-            ColorWaypoints();
             BreadthFirstSearch();
             CreatePath();
         }
@@ -76,13 +75,6 @@ public class PathFinder : MonoBehaviour
 
         }
     }
-
-    private void ColorWaypoints()
-    {
-        start.SetTopColor(Color.green);
-        finish.SetTopColor(Color.red);
-    }
-
     private void LoadBlocks()
     {
         var waypoints = FindObjectsOfType<Waypoint>();
