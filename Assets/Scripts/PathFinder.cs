@@ -13,6 +13,10 @@ public class PathFinder : MonoBehaviour
     bool isRunning = true;
     Waypoint searchCenter;
 
+    private void Start()
+    {
+        GetPath();
+    }
     public List<Waypoint> GetPath()
     {
         if (path.Count == 0)

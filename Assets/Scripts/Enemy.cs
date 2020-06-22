@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] int hitPoints = 8;
+    [SerializeField] ParticleSystem hitParticle, deathParticle;
     bool isDestroyed = false;
 
     private void OnParticleCollision(GameObject other)
@@ -14,6 +15,7 @@ public class Enemy : MonoBehaviour
             TriggerDeath();
         } else
         {
+            hitParticle.Play();
             hitPoints--;
         }
     }
@@ -21,6 +23,7 @@ public class Enemy : MonoBehaviour
     private void TriggerDeath()
     {
         isDestroyed = true;
+        Instantiate(deathParticle, this.transform.position + new Vector3(0,6,0), Quaternion.identity);
         Destroy(gameObject);
     }
 }
