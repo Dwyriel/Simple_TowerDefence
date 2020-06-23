@@ -10,6 +10,7 @@ public class Tower : MonoBehaviour
     [SerializeField] float attackRange = 40f;
     ParticleSystem projectile;
     Transform targetEnemy;
+    Waypoint baseWaypoint;
     private void Start()
     {
         projectile = GetComponentInChildren<ParticleSystem>();
@@ -63,5 +64,14 @@ public class Tower : MonoBehaviour
         {
             projectile.Stop();
         }
+    }
+
+    public void SetBaseWaypoint(Waypoint waypoint)
+    {
+        this.baseWaypoint = waypoint;
+    }
+    public Waypoint GetBaseWaypoint()
+    {
+        return this.baseWaypoint;
     }
 }

@@ -63,11 +63,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0372e9211ed1dd34484fd99a7834aaf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 6
+  hitPoints: 9
   hitParticle: {fileID: 151893943060521882}
   deathParticle: {fileID: 198537984209914932, guid: 1a51bfda454239a41afb7dee687c6ac0,
     type: 3}
-  toBeDestroyed: {fileID: 0}
 --- !u!114 &1814571238488138257
 MonoBehaviour:
   m_ObjectHideFlags: 0
