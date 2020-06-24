@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class TowerManager : MonoBehaviour
 {
-    [SerializeField] Tower towerPrefab;
     [SerializeField] int towerLimit = 4;
+    [SerializeField] Tower towerPrefab;
+    [SerializeField] GameObject towerParent;
     Queue<Tower> towers = new Queue<Tower>();
     public void addTower(Waypoint waypoint, Quaternion rotation)
     {
@@ -23,6 +24,7 @@ public class TowerManager : MonoBehaviour
     private void InstantiateNewTower(Waypoint waypoint, Quaternion rotation)
     {
         Tower instantiatedTower = Instantiate(towerPrefab, waypoint.transform.position, rotation);
+        instantiatedTower.gameObject.transform.parent = towerParent.transform;
         towers.Enqueue(instantiatedTower);
         instantiatedTower.GetComponent<Tower>().SetBaseWaypoint(waypoint);
         waypoint.isPlaceable = false;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] List<Waypoint> path;
+    [SerializeField] ParticleSystem goalParticle;
 
     void Start()
     {
@@ -20,10 +21,7 @@ public class EnemyMovement : MonoBehaviour
             transform.position = waypoint.transform.position;
             yield return new WaitForSeconds(1f);
         }
-    }
-    
-    void Update()
-    {
-
+        FindObjectOfType<PlayerBaseHealth>().ReduceHP();
+        this.gameObject.GetComponent<Enemy>().TriggerDeath(goalParticle);
     }
 }
